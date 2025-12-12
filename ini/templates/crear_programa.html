@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Programa</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu-btn" id="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="{% url 'dashboard' %}" class="dashboard">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> 
+                <h2>ASISTENCIA APP</h2>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Gestión de Personas</span>
+            </a>
+            <a href="{% url 'programa' %}" class="nav-item active">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Programas y Módulos</span>
+            </a>
+            <a href="{% url 'inscripcion' %}" class="nav-item">
+                <i class="fas fa-user-plus"></i>
+                <span>Inscripciones</span>
+            </a>
+            <a href="{% url 'asistencia' %}" class="nav-item ">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Registro de Asistencias</span>
+            </a>
+    </div>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="main-content">
+        <header class="header">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Crear Programa</h1>
+            <div class="user-info">Administrador</div>
+        </header>
+
+        <section class="content-area form-area">
+            <div class="form-card">
+                <h3>Registro de Programa Educativo</h3>
+                
+                <form action="{% url 'crear_programa' %}" method="POST" class="crud-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="id_nombre"><i class="fas fa-file-signature"></i> Nombre del Programa</label>
+                        <input id="id_nombre" name="nombre" type="text" placeholder="Ej: Diplomado en Desarrollo Web" class="form-field" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_codigo"><i class="fas fa-barcode"></i> Código Único</label>
+                        <input id="id_codigo" type="text" name="codigo" placeholder="Ej: DWEB-2024" class="form-field" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="{% url 'programa' %}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
+                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Guardar Programa</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="{% static 'js/menu.js' %}" ></script>
+
+</body>
+</html>

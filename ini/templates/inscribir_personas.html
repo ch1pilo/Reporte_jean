@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Inscripción</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu-btn" id="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="{% url 'dashboard' %}" class="dashboard">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> 
+                <h2>ASISTENCIA APP</h2>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Gestión de Personas</span>
+            </a>
+            <a href="{% url 'programa' %}" class="nav-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Programas y Módulos</span>
+            </a>
+            <a href="{% url 'inscripcion' %}" class="nav-item active">
+                <i class="fas fa-user-plus"></i>
+                <span>Inscripciones</span>
+            </a>
+            <a href="{% url 'asistencia' %}" class="nav-item ">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Registro de Asistencias</span>
+            </a>
+    </div>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="main-content">
+        <header class="header">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <h1>Finalizar Inscripción</h1>
+            <div class="user-info">Usuario Admin</div>
+        </header>
+
+        <section class="content-area form-area">
+            <div class="form-card">
+                <h3>Inscribir alumno en: <span style="color: var(--primary-color);">{{ programa.nombre }}</span></h3>
+                <p style="margin-bottom: 20px; color: #666;">Selecciona al estudiante de la lista para completar el registro.</p>
+                
+                <form action="{% url 'inscribir_programa' programa.id %}" method="POST" class="crud-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="id_usuario"><i class="fas fa-user-graduate"></i> Seleccionar Alumno</label>
+                        <select id="id_usuario" name="usuario_id" class="form-field" required>
+                            <option value="" disabled selected>-- Buscar persona por nombre o cédula --</option>
+                            {% for p in personas %}
+                                <option value="{{ p.id_user.id }}">
+                                    {{ p.id_user.username }} (C.I: {{ p.cedula }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="{% url 'vista_seleccionar_programa' %}" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cambiar Programa
+                        </a>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Confirmar Inscripción
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+        <script src="{% static 'js/menu.js' %}" ></script>
+
+</body>
+</html>

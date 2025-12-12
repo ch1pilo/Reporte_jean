@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Inscripción</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{% url 'dashboard' %}" class="dashboard">
+        <div class="logo">
+            <i class="fas fa-calendar-check"></i> 
+            <h2>ASISTENCIA APP</h2>
+        </div>
+    </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">Gestión de Personas</a>
+            <a href="{% url 'programa' %}" class="nav-item">Programas y Módulos</a>
+            <a href="{% url 'inscripcion' %}" class="nav-item active">Inscripciones</a>
+            <a href="{% url 'asistencia' %}" class="nav-item">Registro de Asistencias</a>
+        </nav>
+        <div class="logout-link"><a href="{% url 'logout_views' %}">Cerrar Sesión</a></div>
+    </div>
+    
+    <div class="main-content">
+        <header class="header">
+            <h1>Finalizar Inscripción</h1>
+            <div class="user-info">Usuario Admin</div>
+        </header>
+
+        <section class="content-area form-area">
+            <div class="form-card">
+                <h3>Inscribir en: {{ programa.nombre }}</h3>
+                <p>Selecciona el alumno de la lista:</p>
+                
+                <form action="{% url 'inscribir_programa' programa.id %}" method="POST" class="crud-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="id_usuario"><i class="fas fa-user"></i> Alumno</label>
+                        <select id="id_usuario" name="usuario_id" class="form-field" required>
+                            <option value="" disabled selected>-- Buscar persona --</option>
+                            {% for p in personas %}
+                                <option value="{{ p.id_user.id }}">
+                                    {{ p.id_user.username }} - C.I: {{ p.cedula }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="{% url 'vista_seleccionar_programa' %}" class="btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Guardar Inscripción
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="{% static 'js/menu.js' %}" ></script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Un fondo gris claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.dashboard{
+    color: #ced4da;
+    text-decoration: none;
+}
+/* Contenedor principal del login */
+.login-card {
+    background-color: #ffffff; /* Fondo blanco para la tarjeta */
+    padding: 40px;
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
+    max-width: 380px; /* Ancho máximo para el formulario */
+    text-align: center;
+}
+
+/* Títulos y subtítulos */
+.login-subtitle {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.login-title {
+    font-size: 2rem;
+    color: #343a40;
+    margin-bottom: 30px;
+}
+
+/* Grupos de entrada */
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.input-group i {
+    color: #495057;
+    margin-right: 10px;
+}
+
+.field {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 5px 0;
+    font-size: 1rem;
+    background: transparent;
+}
+
+/* Botón de alternar contraseña */
+.icon-password {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Botón de acceso */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff; /* Un azul primario */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

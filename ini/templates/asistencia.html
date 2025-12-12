@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Asistencias</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu-btn" id="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="{% url 'dashboard' %}" class="dashboard">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> 
+                <h2>ASISTENCIA APP</h2>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Gestión de Personas</span>
+            </a>
+            <a href="{% url 'programa' %}" class="nav-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Programas y Módulos</span>
+            </a>
+            <a href="{% url 'inscripcion' %}" class="nav-item">
+                <i class="fas fa-user-plus"></i>
+                <span>Inscripciones</span>
+            </a>
+            <a href="{% url 'asistencia' %}" class="nav-item active">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Registro de Asistencias</span>
+            </a>
+    </div>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="main-content">
+        <header class="header">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Asistencias</h1>
+            <div class="user-info">Administrador</div>
+        </header>
+        
+        <section class="content-area">
+            <div class="card-list-header">
+                <h2>Selecciona un Módulo para Evaluar</h2>
+            </div>
+
+            <div class="table-container">
+                {% if programas %}
+                    {% for p in programas %}
+                    <div style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                        <div style="background: #f8f9fa; padding: 10px 15px; font-weight: bold; border-bottom: 1px solid #ddd;">
+                            <i class="fas fa-graduation-cap"></i> {{ p.nombre }}
+                        </div>
+                        <div style="padding: 15px;">
+                            {% if p.modulos.all %}
+                                <ul style="list-style: none; padding: 0;">
+                                    {% for m in p.modulos.all %}
+                                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+                                        
+                                        <span>
+                                            <i class="fas fa-book"></i> **{{ m.nombre }}** {% if m.fecha %}
+                                                <small style="color: #6c757d; margin-left: 15px;">
+                                                    <i class="fas fa-calendar-alt"></i> Fecha: **{{ m.fecha }}**
+                                                </small>
+                                            {% else %}
+                                                <small style="color: #adb5bd; margin-left: 15px;">(Fecha no asignada)</small>
+                                            {% endif %}
+                                        </span>
+                                        <a href="{% url 'registrar_asistencia' m.id %}" class="btn-primary" style="padding: 5px 15px; font-size: 0.9rem;">
+                                            <i class="fas fa-check-square"></i> Pasar Lista
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p style="color: #999;">No hay módulos registrados en este programa.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert-info">No hay programas activos.</div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+    <script href="{% static 'js/menu.js' %}" ></script>
+</body>
+</html>

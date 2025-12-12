@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Programa</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu-btn" id="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="{% url 'dashboard' %}" class="dashboard">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> 
+                <h2>ASISTENCIA APP</h2>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Gestión de Personas</span>
+            </a>
+            <a href="{% url 'programa' %}" class="nav-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Programas y Módulos</span>
+            </a>
+            <a href="{% url 'inscripcion' %}" class="nav-item active">
+                <i class="fas fa-user-plus"></i>
+                <span>Inscripciones</span>
+            </a>
+            <a href="{% url 'asistencia' %}" class="nav-item ">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Registro de Asistencias</span>
+            </a>
+    </div>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    
+    <div class="main-content">
+        <header class="header">
+            <h1>Nueva Inscripción: Paso 1</h1>
+            <div class="user-info">Usuario Admin</div>
+        </header>
+
+        <section class="content-area">
+            <div class="card-list-header">
+                <h2>Seleccione un Programa</h2>
+                <a href="{% url 'inscripcion' %}" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Programa</th>
+                            <th>Código</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in programas %}
+                        <tr>
+                            <td>{{ i.nombre }}</td>
+                            <td><span class="status-code">{{ i.codigo }}</span></td>
+                            <td>
+                                <a href="{% url 'inscribir_programa' i.id %}" class="btn-primary">
+                                    <i class="fas fa-check-circle"></i> Seleccionar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+        <script src="{% static 'js/menu.js' %}" ></script>
+
+</body>
+</html>

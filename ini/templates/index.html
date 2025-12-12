@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <section class="login-hero">
+    <div class="login-card">
+      <div class="login-subtitle">BIENVENIDO AL</div>
+      <h1 class="login-title">INICIO DE SESIÓN</h1>
+      <form class="login-form" action="{% url 'logueado' %}" method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input id="user" type="text" class="field" name="nombre" placeholder="Ingresa tu usuario" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input id="pass" type="password" name="pasword" class="field" placeholder="Ingresa tu contraseña" required>
+          <i class="fas fa-eye icon-password" onclick="togglePassword()"></i>
+        </div>
+        <button type="submit" class="btn-primary">Acceder</button>
+      </form>
+    </div>
+    </section>
+
+    <script>
+        function togglePassword() {
+      var passField = document.getElementById('pass');
+      var icon = document.querySelector('.icon-password'); // Selecciono por la clase más específica
+      if (passField.type === "password") {
+        passField.type = "text";
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        passField.type = "password";
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+      </script>
+      
+</body>
+</html>

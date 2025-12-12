@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Asistencia</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos básicos para el switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f44336; /* Rojo = Faltó */
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4CAF50; /* Verde = Asistió */
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        .info-header {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-header strong {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu-btn" id="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="{% url 'dashboard' %}" class="dashboard">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> 
+                <h2>ASISTENCIA APP</h2>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Gestión de Personas</span>
+            </a>
+            <a href="{% url 'programa' %}" class="nav-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Programas y Módulos</span>
+            </a>
+            <a href="{% url 'inscripcion' %}" class="nav-item">
+                <i class="fas fa-user-plus"></i>
+                <span>Inscripciones</span>
+            </a>
+            <a href="{% url 'asistencia' %}" class="nav-item active">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Registro de Asistencias</span>
+            </a>
+    </div>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="main-content">
+        <header class="header">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Pasar Lista: Módulo {{ modulo.nombre }}</h1>
+            <div class="user-info">Administrador</div>
+        </header>
+
+        <section class="content-area">
+            
+            <div class="info-header">
+                <div>
+                    <i class="fas fa-graduation-cap"></i> Programa: <strong>{{ programa.nombre }}</strong>
+                </div>
+                <div>
+                    <i class="fas fa-calendar-alt"></i> Fecha del Módulo: <strong>{{ modulo.fecha }}</strong>
+                </div>
+                <a href="{% url 'asistencia' %}" class="btn-secondary"><i class="fas fa-arrow-left"></i> Volver</a>
+            </div>
+
+            <form action="{% url 'guardar_asistencia' modulo.id %}" method="POST">
+                {% csrf_token %}
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre Completo</th>
+                                <th>Cédula</th>
+                                <th>Asistencia (Verde = Asistió)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for estudiante in lista_asistencia %}
+                            <tr>
+                                <td>{{ estudiante.nombre_completo }}</td>
+                                <td>{{ estudiante.cedula }}</td>
+                                <td>
+                                    <label class="switch">
+                                        <input 
+                                            type="checkbox" 
+                                            name="asistencia_{{ estudiante.inscripcion_id }}" 
+                                            {% if estudiante.asistio %}checked{% endif %}
+                                        >
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 20px; text-align: center;">
+                    <button type="submit" class="btn-primary" style="padding: 10px 30px; font-size: 1.1rem;">
+                        <i class="fas fa-save"></i> Guardar Asistencias
+                    </button>
+                </div>
+            </form>
+
+        </section>
+    </div>
+    <script src="{% static 'js/menu.js' %}" ></script>
+</body>
+</html>

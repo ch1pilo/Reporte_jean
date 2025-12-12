@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de {{ programa.nombre }}</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu-btn" id="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="{% url 'dashboard' %}" class="dashboard">
+            <div class="logo">
+                <i class="fas fa-calendar-check"></i> 
+                <h2>ASISTENCIA APP</h2>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="{% url 'persona' %}" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Gestión de Personas</span>
+            </a>
+            <a href="{% url 'programa' %}" class="nav-item active" >
+                <i class="fas fa-graduation-cap"></i>
+                <span>Programas y Módulos</span>
+            </a>
+            <a href="{% url 'inscripcion' %}" class="nav-item">
+                <i class="fas fa-user-plus"></i>
+                <span>Inscripciones</span>
+            </a>
+            <a href="{% url 'asistencia' %}" class="nav-item ">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Registro de Asistencias</span>
+            </a>
+    </div>
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="main-content">
+        <header class="header">
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Detalles del Programa</h1>
+            <div class="user-info">Administrador</div>
+        </header>
+
+        <section class="content-area">
+            
+            <div class="info-card">
+                <div class="info-header">
+                    <h3><i class="fas fa-info-circle"></i> Datos del Programa</h3>
+                    
+                    <div class="actions">
+                        <a href="{% url 'reporte_asistencia_pdf' programa.id %}" target="_blank" class="btn-secondary" style="background-color: #dc3545; color: white;">
+                            <i class="fas fa-file-pdf"></i> Descargar PDF
+                        </a>
+                        
+                        <a href="{% url 'editar_programa' programa.id %}" class="btn-primary btn-edit">
+                            <i class="fas fa-pen"></i> Editar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <label>Nombre:</label>
+                        <p>{{ programa.nombre }}</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Código:</label>
+                        <p><span class="status-code">{{ programa.codigo }}</span></p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Total de Módulos:</label>
+                        <p>{{ modulos|length }}</p> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-list-header modules-header">
+                <h2>Módulos Registrados</h2>
+                <a href="{% url 'crear_modulo' programa.id %}" class="btn-primary">
+                    <i class="fas fa-plus-circle"></i> Crear Nuevo Módulo
+                </a>
+            </div>
+
+            <div class="table-container">
+                {% if modulos %}
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Módulo</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in modulos %}
+                        <tr>
+                            <td>{{ i.nombre }}</td>
+                            <td>{{ i.fecha|date:"d M Y" }}</td>
+                            <td>
+                                <a href="{% url 'editar_modulo' i.id %}" class="btn-secondary btn-edit">
+                                    <i class="fas fa-pen"></i> Editar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="alert-info">
+                        <i class="fas fa-info-circle"></i> Este programa no tiene módulos registrados.
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+        <script src="{% static 'js/menu.js' %}" ></script>
+
+</body>
+</html>

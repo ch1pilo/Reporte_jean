@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Asistencia</title>
+    <style>
+        @page {
+            size: letter landscape; /* Hoja Carta Horizontal para que quepan los módulos */
+            margin: 2cm;
+        }
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .alumno-col {
+            text-align: left;
+            width: 200px;
+        }
+        .asistio { color: green; font-weight: bold; }
+        .falto { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Reporte General de Asistencias</h1>
+    <h2>Programa: {{ programa.nombre }}</h2>
+    <p>Código: {{ programa.codigo }} | Fecha de emisión: {% now "d/m/Y" %}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="alumno-col">Estudiante</th>
+                {% for m in modulos %}
+                    <th>
+                        {{ m.nombre }}<br>
+                        <span style="font-size: 9px;">{{ m.fecha|date:"d/m" }}</span>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in datos %}
+            <tr>
+                <td class="alumno-col">
+                    {{ fila.nombre }}<br>
+                    <small>{{ fila.cedula }}</small>
+                </td>
+                
+                {% for estado in fila.estados_asistencia %}
+                    <td>
+                        {% if estado == "ASISTIÓ" %}
+                            <span class="asistio">✔</span>
+                        {% elif estado == "FALTÓ" %}
+                            <span class="falto">✖</span>
+                        {% else %}
+                            <span style="color: #999;">-</span>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

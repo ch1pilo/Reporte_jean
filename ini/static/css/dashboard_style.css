@@ -1,0 +1,627 @@
+/* Variables de color */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f4f7f6;
+    --sidebar-bg: #2c3e50; /* Azul oscuro */
+    --sidebar-text: #ecf0f1; /* Gris claro */
+}
+
+/* Estilos Generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: var(--background-color);
+}
+
+/* Sidebar (Barra Lateral) */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    height: 100vh;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    padding: 10px 0 30px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.logo h2 {
+    font-size: 1.2rem;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+}
+
+/* Navegación */
+.nav-links {
+    flex-grow: 1; /* Permite que los enlaces ocupen el espacio central */
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: #34495e; /* Un tono más claro al pasar el ratón */
+    color: white;
+}
+
+.nav-item i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Enlace de Cerrar Sesión */
+.logout-link a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    margin-top: 10px;
+    color: #e74c3c; /* Color de advertencia para cerrar sesión */
+    text-decoration: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s;
+}
+
+.logout-link a:hover {
+    background-color: rgba(231, 76, 60, 0.2);
+}
+
+/* Contenido Principal */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px 30px;
+    margin: -30px -30px 30px -30px; /* Extiende el header hasta los bordes del padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    color: #343a40;
+    margin: 0;
+}
+
+.user-info {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+.user-info i {
+    margin-right: 5px;
+    font-size: 1.2rem;
+}
+
+/* Área de Contenido */
+.content-area {
+    padding: 20px 0;
+}
+
+/* Tarjeta de Bienvenida */
+.welcome-card {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #bee5eb;
+    margin-bottom: 30px;
+}
+
+.welcome-card h3 {
+    margin-top: 0;
+}
+
+/* Grid de Estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.stat-card h4 {
+    margin: 0 0 5px 0;
+    color: var(--secondary-color);
+}
+
+.stat-card p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #343a40;
+    margin: 0;
+}
+
+/* Colores de íconos */
+.icon-blue { color: var(--primary-color); }
+
+/* --- ESTILOS ESPECÍFICOS PARA CRUD --- */
+
+/* Contenedor de la lista y botón de acción */
+.card-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.card-list-header h2 {
+    margin: 0;
+    color: #343a40;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #1b2bd900;
+    color: #1b2cd9;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-primary i {
+    margin-right: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #1b2cd9;
+    color: #fff;
+}
+
+.dashboard{
+    color: #ced4da;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: #1b2cd9; /* Gris */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+    background-color: #0c1ab3;
+}
+
+.btn-secondary i {
+    margin-right: 5px;
+}
+
+/* Tablas */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-height: 400px; 
+    overflow-y: auto; 
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.data-table thead th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos de Estatus */
+.status-active {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background-color: #d4edda; /* Fondo verde claro */
+    color: #155724; /* Texto verde oscuro */
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.status-inactive {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #721c24; /* Texto rojo oscuro */
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Alerta de vacío */
+.alert-info {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.alert-info i {
+    margin-right: 10px;
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA FORMULARIOS CRUD --- */
+
+.form-area {
+    display: flex;
+    justify-content: center; /* Centra el formulario horizontalmente */
+    padding: 20px 0;
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 500px; /* Ancho máximo para formularios */
+}
+
+.form-card h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #343a40;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 10px;
+}
+
+.crud-form {
+    display: grid;
+    gap: 15px; /* Espacio entre grupos de formulario */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: var(--primary-color);
+}
+
+.form-field {
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f8f9fa;
+}
+
+.form-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+    background-color: white;
+}
+
+/* Acciones del formulario (botones) */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Botón de Peligro (Eliminar) */
+.btn-danger {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Estilo para mostrar códigos de programa/ID de forma destacada */
+.status-code {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #0318fc75;
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Ajuste para el botón de editar */
+.btn-edit {
+    background-color: #1b2bd900; /* Amarillo */
+    border: solid 2px;
+    color: #1b2cd9;
+    margin-left: 10px; /* Separación del botón 'Ver Módulos' */
+}
+
+.btn-edit:hover {
+    background-color: #071076;
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA DETALLE DE PROGRAMA --- */
+
+.info-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.info-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.info-header h3 i {
+    margin-right: 10px;
+}
+
+.detail-grid {
+    flex-wrap: wrap;
+    display: flex;
+    gap: 20px;
+}
+
+.detail-item{
+    flex: 1 1 200px
+}
+
+.detail-item label {
+    display: block;
+    font-weight: bold;
+    color: #6c757d;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.detail-item p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #343a40;
+}
+
+/* Encabezado de la sección de Módulos (para diferenciarlo del header principal) */
+.modules-header {
+    margin-top: 40px;
+    border-top: 1px solid #e9ecef;
+    padding-top: 20px;
+}
+
+/* --- ESTILOS RESPONSIVOS Y MENÚ MÓVIL --- */
+
+/* Botón Hamburguesa (Oculto en escritorio) */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    margin-right: 15px;
+    padding: 5px;
+}
+
+/* Botón cerrar dentro del sidebar (Oculto en escritorio) */
+.close-menu-btn {
+    display: none;
+    text-align: right;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Overlay (Fondo oscuro transparente) */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998; /* Debajo del sidebar, encima del contenido */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* --- MEDIA QUERY: PANTALLAS MENORES A 768px (Tablets y Móviles) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Ajuste del Layout Principal */
+    body {
+        display: block; /* Quitamos flex para que no se pongan lado a lado */
+    }
+
+    /* 2. Sidebar Oculto (Off-canvas) */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -260px; /* Escondido a la izquierda */
+        height: 100vh;
+        width: 250px;
+        z-index: 999; /* Encima de todo */
+        transition: left 0.3s ease-in-out;
+    }
+
+    /* Clase para mostrar el sidebar */
+    .sidebar.active {
+        left: 0;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+
+    /* Mostrar botón cerrar en móvil */
+    .close-menu-btn {
+        display: block;
+    }
+
+    /* 3. Ajuste del Contenido Principal */
+    .main-content {
+        width: 100%;
+        padding: 15px; /* Menos padding en móvil */
+    }
+
+    /* 4. Ajuste del Header */
+    .header {
+        margin: -15px -15px 20px -15px; /* Reajustar márgenes negativos */
+        padding: 15px;
+        justify-content: flex-start; /* Alinear a la izquierda */
+    }
+    
+    .header h1 {
+        font-size: 1.1rem; /* Texto más pequeño */
+    }
+
+    .user-info {
+        margin-left: auto; /* Empujar info de usuario a la derecha */
+        font-size: 0.9rem;
+    }
+
+    /* Mostrar botón hamburguesa */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* 5. Ajustes de Tablas y Tarjetas */
+    .card-list-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%; /* Botones ancho completo en móvil */
+        justify-content: center;
+    }
+
+    /* Ajuste para que las tablas no rompan el diseño */
+    .table-container {
+        padding: 10px;
+        overflow-x: auto; /* Scroll horizontal obligatorio */
+    }
+
+    /* Ajuste de formularios */
+    .form-card {
+        padding: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .form-actions a, .form-actions button {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    /* Ajuste de detalles */
+    .detail-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
